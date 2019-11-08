@@ -1,0 +1,18 @@
+$link-color:  #1F89CD;
+
+.container {
+  display: flex;
+  margin: 0 auto;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5rem;
+
+  a {
+    color: $link-color;
+  }
+  a:hover {
+    text-decoration: none;
+    color: darken($link-color, 20);
+  }
+}
