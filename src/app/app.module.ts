@@ -8,7 +8,6 @@ import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { HttpErrorHandler } from './shared/http-error-handler.service';
 
 @NgModule({
   declarations: [
@@ -23,9 +22,7 @@ import { HttpErrorHandler } from './shared/http-error-handler.service';
     HttpClientModule,
     AppRoutingModule,
   ],
-  providers: [
-    HttpErrorHandler,
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
