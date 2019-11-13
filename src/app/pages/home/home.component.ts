@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from 'src/app/shared/shared.service';
-import { Movie } from 'src/app/shared/shared.interface';
+
+import { SharedService } from '~app/shared/shared.service';
+import { Movie } from '~app/shared/shared.interface';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +10,17 @@ import { Movie } from 'src/app/shared/shared.interface';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  movies: Movie[] = [];
+  loading: boolean = false;
+  errorMessage: string = '';
+  moviesObservable: Observable<Movie[]>;
   
-  constructor() { }
+  constructor(
+    private sharedService: SharedService, 
+  ) { }
 
   ngOnInit() { }
 
+  onSubmittedSearchForm(query: string) {
+    this.moviesObservable = this.sharedService.getMoviesByQuery(query);
+  }
 }
