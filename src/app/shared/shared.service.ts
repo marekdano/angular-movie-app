@@ -13,9 +13,14 @@ const httpOptions = {
   })
 };
 
-@Injectable()
+const API_KEY = '4a3b711b';
+const DEFAULT_PLACEHOLDER_IMAGE = '/assets/placeholder-image.png';
+
+@Injectable({
+  providedIn: 'root'
+})
 export class SharedService {
-  baseUrl = 'https://www.omdbapi.com?apikey=4a3b711b';
+  baseUrl = `https://www.omdbapi.com?apikey=${API_KEY}`;
   private handleError: HandleError;
 
   constructor(
@@ -37,9 +42,42 @@ export class SharedService {
               title: item.Title,
               year: item.Year,
               type: item.Type,
-              poster: item.Poster, 
+              poster: item.Poster !== 'N/A' ? item.Poster : DEFAULT_PLACEHOLDER_IMAGE,
             }
           )) as Movie[]
+        )),
+        catchError(this.handleError('getMovies', null))
+      );
+  }
+
+  getMovieById(id: string): Observable<Movie> {
+    return this.http
+      .get(`${this.baseUrl}&i=${id}`, httpOptions)
+      .pipe(
+        map((item: MovieApiResponse) => (
+          {
+            id: item.imdbID,
+            title: item.Title,
+            year: item.Year,
+            type: item.Type,
+            poster: item.Poster !== 'N/A' ? item.Poster : DEFAULT_PLACEHOLDER_IMAGE,
+            rated: item.Rated,
+            released: item.Released, 
+            runtime: item.Runtime,
+            director: item.Director,
+            writer: item.Writer,
+            actors: item.Actors,
+            plot: item.Plot,
+            language: item.Language,
+            country: item.Country,
+            awards: item.Awards,
+            ratings: item.Ratings.map(rating => ({ source: rating.Source, value: rating.Value })),
+            imdbRating: item.imdbRating,
+            imdbVotes: item.imdbVotes,
+            boxOffice: item.BoxOffice,
+            production: item.Production,
+            website: item.Website,
+          } as Movie
         )),
         catchError(this.handleError('getMovies', null))
       );
