@@ -1,0 +1,5 @@
+<form class="search" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="term" placeholder="Search for movies..." />
+
+  <button type="submit" [disabled]="!searchForm.valid">Search</button>
+</form>
