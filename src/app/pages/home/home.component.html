@@ -3,19 +3,23 @@
   <p>Sharing a few of our favorite movies</p>  
 </section>
 
-<!-- <h5 *ngIf="loading && !errorMessage">Loading...</h5>
-<h5 *ngIf="!loading && errorMessage">{{errorMessage}}</h5> -->
-<main *ngIf="moviesObservable | async as movies">
-  <h2>Movies</h2>
-  <section class="card-container">
-    <figure *ngFor="let movie of movies; index as i" class="card">
-      <h2><a [routerLink]="['/movies', movie.id]">{{movie.title}}</a></h2>
-      <img
-        width="200"
-        alt="The movie title: {{movie.title}}"
-        src={{movie.poster}}
-      />
-      <h5>{{movie.year}}</h5>
-    </figure> 
-  </section>
+<main *ngIf="movies$">
+  <div *ngIf="movies$ | async as movies; else loading"> 
+    <h2 *ngIf="movies.length">Movies</h2>
+    <section class="card-container">
+      <figure *ngFor="let movie of movies; index as i" class="card">
+        <a [routerLink]="['/movies', movie.id]">
+          <h2>{{movie.title}}</h2>
+          <img
+            width="200"
+            alt="The movie title: {{movie.title}}"
+            src={{movie.poster}}
+          />
+        </a>
+        <h5>{{movie.year}}</h5>
+      </figure> 
+    </section>
+  </div>
 </main>
+
+<ng-template #loading>Loading...</ng-template>
