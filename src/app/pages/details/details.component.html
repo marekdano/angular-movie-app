@@ -1,1 +1,30 @@
-<p>movie details page works!</p>
+<section *ngIf="(movie$ | async) as movie; else loading">
+  <p>Title: {{movie.title}}</p>
+  <p>Year: {{movie.year}}</p>
+  <p>Type: {{movie.type}}</p>
+  <p>Poster: {{movie.poster}}</p>
+  <p>Rated: {{movie.rated}}</p>
+  <p>Released: {{movie.released}}</p>
+  <p>Runtime: {{movie.runtime}}</p>
+  <p>Director: {{movie.director}}</p>
+  <p>Writer: {{movie.writer}}</p>
+  <p>Actors: {{movie.actors}}</p>
+  <p>Plot: {{movie.plot}}</p>
+  <p>Language: {{movie.language}}</p>
+  <p>Country: {{movie.country}}</p>
+  <p>Awards: {{movie.awards}}</p>
+  <div *ngFor="let rating of movie.ratings">
+    <hr />
+    <p>Rating source: {{rating.source}}</p>
+    <p>Rating value: {{rating.value}}</p>
+    <hr />
+  </div>
+  <p>imdb Rating: {{movie.imdbRating}}</p>
+  <p>imdb Votes: {{movie.imdbVotes}}</p>
+  <p>Box Office: {{movie.boxOffice}}</p>
+  <p>Production: {{movie.production}}</p>
+  <p>Website: {{movie.website}}</p>
+</section>
+
+<ng-template #loading>Loading...</ng-template>
+
