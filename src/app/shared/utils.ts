@@ -1,0 +1,1 @@
+export const DEFAULT_PLACEHOLDER_IMAGE = '/assets/placeholder-image.png';

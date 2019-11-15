@@ -1,4 +1,10 @@
 export interface MovieApiResponse {
+  Response: string,
+  Error?: string,
+  Search?: MovieApi[],
+}
+
+export interface MovieApi {
   Title: string,
   Year: string,
   imdbID: string,

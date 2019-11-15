@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 import { HttpErrorHandler, HandleError } from './http-error-handler.service';
-import { MovieApiResponse, Movie } from './shared.interface'
+import { MovieApiResponse, Movie, MovieApi } from './shared.interface';
+import { DEFAULT_PLACEHOLDER_IMAGE } from './utils';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -14,7 +15,7 @@ const httpOptions = {
 };
 
 const API_KEY = '4a3b711b';
-const DEFAULT_PLACEHOLDER_IMAGE = '/assets/placeholder-image.png';
+
 
 @Injectable({
   providedIn: 'root'
@@ -30,22 +31,10 @@ export class SharedService {
     this.handleError = httpErrorHandler.createHandleError('SharedService');
   }
 
-  getMoviesByQuery(query: string): Observable<Movie[]> {
+  getMoviesByQuery(query: string): Observable<MovieApiResponse> {
     return this.http
       .get(`${this.baseUrl}&s=${query}`, httpOptions)
-      .pipe(
-        map(response => response['Search'] as MovieApiResponse[]),
-        map((items: MovieApiResponse[]) => (
-          items.map(item => (
-            {
-              id: item.imdbID,
-              title: item.Title,
-              year: item.Year,
-              type: item.Type,
-              poster: item.Poster !== 'N/A' ? item.Poster : DEFAULT_PLACEHOLDER_IMAGE,
-            }
-          )) as Movie[]
-        )),
+      .pipe( 
         catchError(this.handleError('getMovies', null))
       );
   }
@@ -54,7 +43,7 @@ export class SharedService {
     return this.http
       .get(`${this.baseUrl}&i=${id}`, httpOptions)
       .pipe(
-        map((item: MovieApiResponse) => (
+        map((item: MovieApi) => (
           {
             id: item.imdbID,
             title: item.Title,
