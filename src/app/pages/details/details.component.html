@@ -1,26 +1,67 @@
 <section *ngIf="(movie$ | async) as movie; else loading">
-  <p>Title: {{movie.title}}</p>
-  <p>Year: {{movie.year}}</p>
+  <main>
+    <section>
+      <img
+        width="200"
+        alt="The movie title: {{movie.title}}"
+        src={{movie.poster}}
+      />
+    </section>
+    <section class="content">
+      <h1 class="title">
+        {{movie.title}} 
+        <span id="year">({{movie.year}})</span> 
+        <span id="time">({{movie.runtime}})</span>
+      </h1>
+      <div class="box">
+        <h4>IMDB</h4>
+        <p>Rating: {{movie.imdbRating}}</p>
+        <p>Votes: {{movie.imdbVotes}}</p>
+      </div>
+
+      <div class="box">
+        <h3>Overview</h3>
+        <p>{{movie.plot}}</p>
+      </div>
+     
+      <div class="box">
+        <h3>Featured Crew</h3>
+        <table>
+          <tr>
+            <td>Actors</td>
+            <td>{{movie.actors}}</td>
+          </tr>
+          <tr>
+            <td>Writer</td>
+            <td>{{movie.writer}}</td>
+          </tr>
+          <tr>
+            <td>Director</td>
+            <td>{{movie.director}}</td>
+          </tr>
+        </table>
+      </div>
+      <div *ngIf="movie.ratings.length" class="box">
+        <h3>Ratings</h3>
+        <div class="ratings">
+          <div *ngFor="let rating of movie.ratings" class="rating">
+            {{rating.source}}
+            <h3>{{rating.value}}</h3>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3>Awards</h3>
+        <p>{{movie.awards}}</p>
+      </div>
+    </section>
+  </main>
+  
   <p>Type: {{movie.type}}</p>
-  <p>Poster: {{movie.poster}}</p>
   <p>Rated: {{movie.rated}}</p>
   <p>Released: {{movie.released}}</p>
-  <p>Runtime: {{movie.runtime}}</p>
-  <p>Director: {{movie.director}}</p>
-  <p>Writer: {{movie.writer}}</p>
-  <p>Actors: {{movie.actors}}</p>
-  <p>Plot: {{movie.plot}}</p>
   <p>Language: {{movie.language}}</p>
   <p>Country: {{movie.country}}</p>
-  <p>Awards: {{movie.awards}}</p>
-  <div *ngFor="let rating of movie.ratings">
-    <hr />
-    <p>Rating source: {{rating.source}}</p>
-    <p>Rating value: {{rating.value}}</p>
-    <hr />
-  </div>
-  <p>imdb Rating: {{movie.imdbRating}}</p>
-  <p>imdb Votes: {{movie.imdbVotes}}</p>
   <p>Box Office: {{movie.boxOffice}}</p>
   <p>Production: {{movie.production}}</p>
   <p>Website: {{movie.website}}</p>

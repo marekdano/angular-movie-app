@@ -1,0 +1,46 @@
+@import '~sass/_variables';
+
+main {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  margin: auto;
+  margin-bottom: 2rem;
+  padding: 3rem;
+  background-color: darken($primary-color, 3);
+
+  h1.title {
+    font-size: 2rem;
+
+    span {
+      font-weight: 400;
+
+      &#year {
+        font-size: 1.6rem;
+      }
+  
+      &#time {
+        font-size: 1.1rem;
+        padding-left: .5rem;
+      }
+    }
+  }
+
+ .content {
+   padding: .1rem 0 0 4rem;
+
+   .box {
+     margin: 2rem 0
+   }
+
+   .ratings {
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+   }
+ }
+}
+
+table tr td {
+  vertical-align: top;
+}
