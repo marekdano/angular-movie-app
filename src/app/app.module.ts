@@ -10,6 +10,8 @@ import { FooterComponent } from './core/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { SearchComponent } from './shared/components/search/search.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './reducers';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { SearchComponent } from './shared/components/search/search.component';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
+    StoreModule.forRoot(reducers)
   ],
   providers: [],
   bootstrap: [AppComponent]
